@@ -58,7 +58,7 @@ def test_get_book_by_id():
 
     data = response.json()
     assert data["id"] == 1
-    assert data["title"] == "The Hobbit"
+    assert data["title"] == "The Hobbit: An Unexpected Journey"
     assert data["author"] == "J.R.R. Tolkien"
 
 
