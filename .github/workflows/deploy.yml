@@ -42,3 +42,4 @@ jobs:
             docker rm fastapi-app || true
             docker run -d -p 8000:8000 --name fastapi-app ${{ secrets.ECR_REPO_URL }}:latest
           EOF
+
