@@ -34,11 +34,12 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          echo "$EC2_SSH_PRIVATE_KEY" > private_key.pem
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }} > private_key.pem
           chmod 600 private_key.pem
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@$EC2_PUBLIC_IP << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
             docker pull ${{ secrets.ECR_REPO_URL }}:latest
             docker stop fastapi-app || true
             docker rm fastapi-app || true
             docker run -d -p 8000:8000 --name fastapi-app ${{ secrets.ECR_REPO_URL }}:latest
           EOF
+
