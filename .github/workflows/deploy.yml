@@ -18,6 +18,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+          aws-profile: ${{ secrets.AWS_PROFILE }}
 
       - name: Build Docker Image
         run: |
@@ -25,7 +26,7 @@ jobs:
 
       - name: Authenticate to AWS ECR
         run: |
-          aws ecr get-login-password --region us-east-1 --profile ${{ secrets.AWS_PROFILE }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPO_URL }}
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.ECR_REPO_URL }}
 
       - name: Push Docker Image to ECR
         run: |
